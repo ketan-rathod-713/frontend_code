@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+</head>
+
+<body>
+    <div id="header">
+        <h1>Welcome to the Quiz App</h1>
+
+        <button id="startQuiz">Start Quiz</button>
+    </div>
+    <div class="quiz-box">
+        <div class="question">
+
+        </div>
+        <div class="options-box">
+
+        </div>
+    </div>
+
+    <script>
+
+        var startQuizBtn = document.getElementById("startQuiz")
+        var headerDiv = document.getElementById("header")
+
+        var filters = [
+            {
+                "title": "Which of the interest best aligns with you !",
+                "options": [
+                    {
+                        id: 1,
+                        data: "data scientist"
+                    },
+                    {
+                        id: 2,
+                        data: "react developer"
+                    },
+                    {
+                        id: 3,
+                        data: "backend developer"
+                    },
+                    {
+                        id: 4,
+                        data: "none"
+                    },
+                ]
+            },
+            {
+                "title": "How many questions you would like to answer !",
+                "options": [
+                    {
+                        id: 1,
+                        data: 5
+                    },
+                    {
+                        id: 2,
+                        data: 10
+                    },
+                    {
+                        id: 3,
+                        data: 20
+                    },
+                    {
+                        id: 4,
+                        data: 30
+                    },
+                ]
+            },
+        ]
+
+        var questions = [
+            {
+                "id": 1,
+                "question": "what is your favourite number",
+                "options": [
+                    {
+                        "id": 1,
+                        "data": 10
+                    },
+                    {
+                        "id": 1,
+                        "data": 20
+                    },
+                    {
+                        "id": 1,
+                        "data": 30
+                    },
+                    {
+                        "id": 1,
+                        "data": 40
+                    }
+                ]
+            }
+        ]
+        // variables required
+        let quizStarted = false
+        let timeTaken = 0
+        let questionNumber = undefined
+        let totalQuestions = undefined
+        let headerDetails
+
+        let appStatus = "initial" // intial -> filters -> quiz -> initial
+
+        // it will change the status of quiz and will take the user to the filter page
+        function startQuiz() {
+            appStatus = "filters"
+
+            headerDetails = headerDiv.innerHTML
+            headerDiv.innerHTML = ""
+            console.log(headerDetails)
+
+            // fetch the filters data
+            if (filters.length == 0) {
+                // go directly to quiz
+
+                // fetch the questions based on above filters
+                if(questions.length === 0){
+                    // no questions found // return error
+                    alert("no questions found.")
+                } 
+
+                questions.forEach(function (k, v) {
+                    console.log(k, v)
+                })
+
+            } else {
+                // handle filters first
+            }
+        }
+
+        startQuizBtn.onclick = startQuiz
+
+    </script>
+</body>
+
+</html>
