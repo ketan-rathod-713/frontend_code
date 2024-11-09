@@ -5,20 +5,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz App</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #header h1 {
+            font-weight: bold;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: center;
+            padding: 30px 0px;
+        }
+
+        .quiz-buttons {
+            display: flex;
+            justify-content: center;
+        }
+
+        #startQuiz {
+            padding: 10px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            background-color: red;
+            color: white;
+            cursor: pointer;
+        }
+
+        .quiz-box {
+            margin: 50px 0px 0px 0px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .question-box {
+            width: 700px;
+            border: 1px solid grey;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .question {
+            font-size: 27px;
+        }
+
+        .option-box {
+            display: flex;
+        }
+
+        .option-box input {
+            width: 20;
+            height: 20;
+        }
+    </style>
 </head>
 
 <body>
     <div id="header">
         <h1>Welcome to the Quiz App</h1>
+    </div>
 
+    <div class="quiz-buttons">
         <button id="startQuiz">Start Quiz</button>
     </div>
+
     <div class="quiz-box">
-        <div class="question">
-
-        </div>
-        <div class="options-box">
-
+        <div class="question-box">
+            <div class="question">
+                Tell me what is your name ?
+            </div>
+            <div class="options-box">
+                <div class="option-box">
+                    <input type="checkbox">
+                    <span>
+                        I am option ha ha
+                    </span>
+                </div>
+                <div class="option-box">
+                    <input type="checkbox">
+                    <span>
+                        I am option ha ha
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -107,21 +181,19 @@
 
         // it will change the status of quiz and will take the user to the filter page
         function startQuiz() {
-            appStatus = "filters"
+            console.log("start quiz called")
 
-            headerDetails = headerDiv.innerHTML
-            headerDiv.innerHTML = ""
-            console.log(headerDetails)
+            appStatus = "filters"
 
             // fetch the filters data
             if (filters.length == 0) {
                 // go directly to quiz
 
                 // fetch the questions based on above filters
-                if(questions.length === 0){
+                if (questions.length === 0) {
                     // no questions found // return error
                     alert("no questions found.")
-                } 
+                }
 
                 questions.forEach(function (k, v) {
                     console.log(k, v)
