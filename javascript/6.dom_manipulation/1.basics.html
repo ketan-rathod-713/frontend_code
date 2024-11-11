@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Learning</title>
+</head>
+
+<body>
+    <div class="bg-black">
+        <h1 id="title" class="heading">DOM Learning
+            <span style="display: none;">I am hidden but i will be visible by textContent but not by innerText</span>
+        </h1>
+        <p class="">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam ratione corporis ipsum. Commodi
+            qui
+            consequatur temporibus natus, deleniti dolorem placeat quis, laborum nulla eum expedita est obcaecati dolor
+            et suscipit saepe! Suscipit, provident facilis dolorum temporibus dignissimos, nesciunt excepturi, numquam
+            perspiciatis velit consequatur voluptate nihil.</p>
+    </div>
+
+    <ul>
+        <li class="list-item">first</li>
+        <li class="list-item">second</li>
+        <li class="list-item">third</li>
+    </ul>
+
+    <script>
+        // 
+        const title = document.getElementById("title")
+        console.log(title)
+
+        // what is difference between innerText, innerHTML and textContent properties
+        console.log("inner text", title.innerText)
+        console.log("text content", title.textContent)
+
+        // to get and set attribute
+        console.log("id", title.id)
+        console.log("className", title.className)
+
+        // dom internally className store karta he ha ha. Hence react me bhi esa hoga
+
+        title.setAttribute("class", "heading title something_else")
+        console.log(title.getAttribute("id"))
+        console.log(title.getAttribute("class"))
+
+        title.setAttribute("style", "color: red; padding: 10px; background-color: grey;")
+
+        // we can select any node using any query selector defined in the css ha ha
+        let titleUsingQuerySelector = document.querySelector("#title")
+        console.log(titleUsingQuerySelector)
+
+        let my_ul = document.querySelector("ul")
+        let my_first_li = my_ul.querySelector("li") // ul pe bhi query selector laga sakhte he // very important
+        my_first_li.style.color = "green"
+
+        my_first_li.innerText = "I am first li ha ha"
+        my_first_li.style.fontWeight = "bold"
+
+        let all_li = document.querySelectorAll("li")
+        console.log(all_li)
+
+        // all_li is a node_list
+        // it has some of the methods like the array but it not an array
+        // foreach, entries are defined in its protype // check browsert to view this
+
+        // last element ko red kardo
+        all_li[all_li.length - 1].style.color = "red"
+        all_li[all_li.length - 1].style.fontWeight = "bold"
+        all_li[all_li.length - 1].style.fontSize = "20px"
+
+
+        // iterating the nodeList
+
+        all_li.forEach(li => {
+            li.style.padding = "30px"
+            li.style.border = "3px solid red"
+        })
+
+        // get element by class name // it returns the HTML collection // it is very different from that of node list ha ha 
+
+        let listItems = document.getElementsByClassName("list-item")
+        console.log(listItems)
+
+        // iske prototype me foreach and array related methods nahi he
+        // hence html collection ko bhi convert karna padega
+
+        let updatedItems = Array.from(listItems)
+        console.log(updatedItems)
+
+        // FIXME: why it is not giving suggestions // is there any extentions for it.
+        updatedItems.forEach(item => {
+            item.style.color = "green"
+        })
+
+    </script>
+</body>
+
+</html>
