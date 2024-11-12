@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dom Manipulation</title>
+</head>
+
+<body style="background-color: black; color: white;">
+
+
+
+</body>
+
+<script>
+    const div = document.createElement('div')
+    console.log(div)
+
+    // add properties to the div element
+    div.className = "main"
+    div.id = Math.round(Math.random() * 10 + 1)
+    div.setAttribute("title", "generated title")
+    div.style.color = "blue"
+    div.style.padding = "10px"
+    // div.innerText = "Chai aur code"
+
+    // use setAtrribute over anything. ye directly set karta he. 
+    // innerText pehle round trip me data lata he and then overwrite karta he.
+
+    // so what most people prefer is that
+    const textNode = document.createTextNode("chai aur code")
+
+    div.appendChild(textNode) // both are correcct
+
+    document.body.appendChild(div)
+
+    // Important discussion about NodeList. A nodelist is a collection of document nodes which includes text nodes , attribute nodes and element nodes. A line break is also counted in nodelist but only first one. All subsequent line breaks are ignored by browser
+
+</script>
+
+</html>

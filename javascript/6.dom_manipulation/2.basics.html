@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dom Manipulation</title>
+</head>
+
+<body style="background-color: black; color: white;">
+    <div class="weeks">
+        <!-- This is a comment -->
+        <div class="day">Monday</div>
+        <div class="day">Tuesday</div>
+        <div class="day">Wednesday</div>
+        <div class="day">Thursday</div>
+    </div>
+
+    <script>
+        let weeks = document.querySelector(".weeks")
+        console.log(weeks)
+
+        console.log(weeks.children) // IMP: it returns the html collection, so if we want to do array like operations on it then we can use it in future.
+
+        console.log(weeks.children[0].innerHTML)
+
+        for (let i = 0; i < weeks.children.length; i++) {
+            console.log(weeks.children[i].innerHTML)
+        }
+
+        // firstElementChild returns the first element who is child of this parent
+        console.log(weeks.firstElementChild)
+
+        // same for lastElementChild
+        console.log(weeks.lastElementChild)
+
+        // to move from child to parent
+        const day1 = document.querySelector(".day")
+        console.log("day 1", day1)
+
+        // if we want directory parent
+        console.log("parent element of day1", day1.parentElement)
+
+        // also we can get the next sibling
+        console.log(day1.nextElementSibling)
+
+        // imp: nodes of parent
+        console.log("nodes", weeks.childNodes)
+        // It is different from what we are thinking
+        // enter ko count kiya jata he as a text element
+        // hence ye pura complex thing internally browser ese store karta he
+        // hence total 9 elements instead of 4
+        // once added comment it will be 11 total
+
+
+
+    </script>
+</body>
+
+</html>

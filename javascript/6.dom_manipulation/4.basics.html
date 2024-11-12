@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Manipulation</title>
+</head>
+
+<body style="background-color: black; color: white;">
+    <ul class="language">
+        <li>javascript</li>
+    </ul>
+</body>
+
+<script>
+
+    // function to all language name inside ul
+    function addLanguage(langName) {
+        const li = document.createElement('li')
+        li.innerText = langName
+
+        const ul = document.querySelector(".language")
+        ul.appendChild(li)
+    }
+
+    addLanguage("good")
+
+    // rather then innerhtml use append child method
+    function addOptiLanguage(langName) {
+        const li = document.createElement('li')
+        li.appendChild(document.createTextNode(langName))
+        document.querySelector(".language").appendChild(li)
+    }
+
+    addOptiLanguage("golang")
+
+    const li = document.querySelector("li:nth-child(2)")
+    //    li.innerHTML = "good"
+    const newLi = document.createElement("li")
+    newLi.appendChild(document.createTextNode("good language"))
+
+    // this is actually a good function // replace with ha ha
+    li.replaceWith(newLi)
+
+    // second way of edit
+    document.querySelector("li:nth-child(1)").outerHTML = '<li> This is amazing <li>'
+
+    // to remove use .remove method for any element ha ha agreat
+    document.querySelector("li:nth-child(1)").remove()
+
+</script>
+
+</html>
