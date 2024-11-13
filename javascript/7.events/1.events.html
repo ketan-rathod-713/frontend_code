@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul class="items">
+        <li>
+            Link : <a class="link">something is going on </a> </div>
+        </li>
+        <li>
+            Link : <a class="link">something is going on </a></div>
+        </li>
+        <li>Third</li>
+        <li>Fourth</li>
+        <li>Fith</li>
+        <li>Sixth</li>
+    </ul>
+
+    <script>
+        let items_parent = document.querySelector(".items")
+        console.log(items_parent)
+
+        items_parent.addEventListener("click", function (e) {
+            console.log("clicked on items parent")
+        }, false) // if true here then it will be executed first and will do capture first instead of bubble up
+
+        let li_items = document.querySelectorAll("li")
+        console.log(li_items)
+        li_items.forEach((li) => {
+            li.addEventListener("click", function (e) {
+                console.log("clicked on li")
+            }), false // false used for using default bubble propagation of events
+        })
+
+        let a_items = document.querySelectorAll(".link")
+        console.log(a_items.length)
+        console.log(a_items)
+        a_items.forEach((li) => {
+            li.addEventListener("click", function (e) {
+                console.log("clicked on anchor tag")
+            }), false // false used for using default bubble propagation of events
+        })
+
+    </script>
+</body>
+
+</html>

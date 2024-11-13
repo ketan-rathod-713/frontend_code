@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Async Javascript</h1>
+    <h2 id="current_time"></h2>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+
+    <script>
+        let currentTimeH2 = document.querySelector("#current_time")
+        let intervalReference
+
+        const randomColor = () => {
+            const hex = "0123456789ABCEDEF";
+            let color = "#"
+
+            for (let i = 0; i < 6; i++) {
+                let value = Math.floor(Math.random() * 16)
+                color += hex[value]
+            }
+
+            return color
+        }
+
+        console.log(randomColor())
+
+        const sayDateAndColorChange = () => {
+            const currentDate = new Date()
+            currentTimeH2.innerHTML = currentDate
+
+            document.querySelector("body").style.backgroundColor = randomColor()
+        }
+
+        const start = (e) => {
+            // start interval and save it's reference
+            intervalReference = setInterval(sayDateAndColorChange, 1000);
+        }
+
+        const stop = (e) => {
+            if (intervalReference) {
+                clearInterval(intervalReference)
+                intervalReference = null
+            } else {
+                alert("timer not started yet")
+            }
+        }
+
+        sayDateAndColorChange()
+
+        // apply listeners for it.
+        document.getElementById("start").addEventListener("click", start)
+        document.getElementById("stop").addEventListener("click", stop)
+    </script>
+</body>
+
+</html>

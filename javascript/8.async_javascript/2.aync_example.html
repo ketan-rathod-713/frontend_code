@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Project</title>
+</head>
+
+<body>
+    <h1>Asnychronous Javascript</h1>
+    <button id="stop">Stop</button>
+
+    <script>
+        // take reference of settimeout
+        const changeMe = setTimeout(() => {
+            console.log("Hello")
+        }, 2000);
+
+        const changeText = function () {
+            document.querySelector("h1").innerHTML = "Best Language Of The World"
+        }
+
+        setInterval(changeText, 1000);
+
+        document.querySelector("#stop").addEventListener("click", (e) => {
+            clearTimeout(changeMe)
+        })
+
+    </script>
+</body>
+
+
+</html>
