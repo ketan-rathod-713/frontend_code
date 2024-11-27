@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api Requests</title>
+</head>
+
+<!-- XML http request -->
+<!-- It is heavily related to the AJAX -->
+<!-- This is the legacy code, no one maintains it so developers avoid this things -->
+
+<body>
+
+    <script>
+        let username = "ketan-rathod-713"
+        let url = `https://api.github.com/users/${username}`
+
+        let xhr = new XMLHttpRequest()
+        xhr.open("GET", url)
+        xhr.onreadystatechange = function (responseText) {
+            console.log("state changed", xhr.readyState)
+
+            if (xhr.readyState == 4) {
+                console.log(this.responseText) // without this bhi ye work karega how ?
+
+                const data = this.responseText
+                console.log(data.followers) // why this is undefined
+                // because data is a string, hence response needs to be converted into the object
+
+                console.log(typeof data)
+                jsonData = JSON.parse(data)
+                console.log(typeof jsonData)
+                console.log("followers", jsonData.followers)
+            }
+        }
+
+        console.log("requesting user details...")
+        console.log("status of xhr: " + xhr.status)
+        console.log("ready state of xhr: " + xhr.readyState)
+        xhr.send()
+
+
+
+    </script>
+</body>
+
+</html>

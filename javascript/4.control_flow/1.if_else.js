@@ -23,4 +23,3 @@ if (score > 100) {
 // comma lagake bhi aage badh sakte he
 const balance = 10000
 if (balance > 1000) console.log("test"), console.log("test2");
-
