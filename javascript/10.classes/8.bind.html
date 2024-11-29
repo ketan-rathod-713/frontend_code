@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React</title>
+</head>
+
+<body>
+    <button>Button Clicked</button>
+
+    <script>
+        class React {
+            constructor() {
+                this.library = "React"
+                this.server = "http://localhost:3000"
+
+                document
+                    .querySelector("button")
+                    .addEventListener("click", this.handleClick.bind(this))
+            }
+
+            // Requirement
+            // Jese hi ye page load ho, iska ek object banna chahiyye
+            // button ka reference mil jaye and click karne pe kuch ho jae
+
+            handleClick() {
+                console.log(`button clicked`)
+                console.log(this)
+                console.log(this.server) // undefined why // not getting the correct context
+                // to get the context inside this function we have to use bind with the function call whenever it is happening
+                // this is little bit complicated but it is how javascript operates
+                // yaha pe call use nahi kar sakte because reference agar pura hi naya kar diya to konse button pe click kiya vo bhi pata nahi chalega
+                // isliye we use bind to bind the context of this function with the object when it is called
+                // or use arrow function instead of normal function to bind the context automatically
+                // or use the context API or react hooks which are better for complex scenarios
+            }
+        }
+
+        const app = new React()
+    </script>
+</body>
+
+</html>
