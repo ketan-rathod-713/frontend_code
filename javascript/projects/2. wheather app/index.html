@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: white;
+            color: #333;
+        }
+
+        .main {
+            width: 600px;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .search {
+            width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #fetchWheatherDataBtn {
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #fetchWheatherDataBtn:hover {
+            background-color: #0056b3;
+        }
+
+        .weather-data {
+            margin-top: 20px;
+        }
+
+        .weather-data h1 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .weather-data h2,
+        .weather-data h3 {
+            font-size: 1em;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .wheather-condition img {
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .demographics {
+            margin-top: 20px;
+            text-align: left;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        .demographics h3 {
+            margin: 8px 0;
+            font-size: 1em;
+        }
+
+        @media screen and (max-width: 600px) {
+            #locationInput {
+                width: 60%;
+            }
+
+            #fetchWheatherDataBtn {
+                width: 35%;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="search">
+            <input type="text" name="apiKey" id="apiKeyInput"
+                placeholder="Enter API Key : Get it from https://www.weatherapi.com/docs/">
+            <input type="text" name="location" id="locationInput" placeholder="Enter location...">
+            <button id="fetchWheatherDataBtn">Fetch Weather Data</button>
+        </div>
+
+        <div class="weather-data">
+            <div class="wheather-condition">
+                <h1 class="text">Partly cloudy</h1>
+                <h2 class="wind_direction">Wind direction : south to west</h2>
+                <img class="image" src="//cdn.weatherapi.com/weather/64x64/day/116.png" alt="Weather Icon">
+            </div>
+
+            <div class="demographics">
+                <h3 class="name">Name</h3>
+                <h3 class="region">Region</h3>
+                <h3 class="country">Country</h3>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const apiKeyInput = document.getElementById('apiKeyInput');
+        const apiKey = apiKeyInput.value == "" ? "58b201c02ff544daaff83126240212" : apiKeyInput.value;
+        const baseUrl = "http://api.weatherapi.com/v1"
+        const CurrentWheather = "/current.json"
+        const Forecase = "/forecast.json"
+        const Search = "/search.json"
+        const History = "/history.json"
+        const fetchWheatherDataBtn = document.getElementById("fetchWheatherDataBtn")
+        const locationInput = document.getElementById("locationInput")
+
+        // location can be 
+        // string specifying city name or area
+        // 'lat,long' string
+        // auto: ip look up 'auto:ip'
+        // by id returned from search api
+        async function fetchCurrentWeatherByLocation(location) {
+            console.log("fetching weather data for location: " + location)
+
+            const url = `${baseUrl}${CurrentWheather}?key=${apiKey}&q=${location}`
+
+            let response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+
+            let data = await response.json()
+
+            return data
+        }
+
+        function updateWheatherData(data) {
+            const wheatherCondition = document.querySelector(".wheather-condition")
+            const name = document.querySelector(".name")
+            const region = document.querySelector(".region")
+            const country = document.querySelector(".country")
+            const image = document.querySelector(".image")
+            const wind_direction = document.querySelector(".wind_direction")
+
+            wheatherCondition.querySelector("h1").innerText = data.current.condition.text
+            wheatherCondition.querySelector("img").src = `${data.current.condition.icon}`
+            wind_direction.innerText = `Wind direction : ${data.current.wind_dir}`
+
+            name.innerText = "Name : " + data.location.name
+            region.innerText = "Region : " + data.location.region
+            country.innerText = "Country : " + data.location.country
+        }
+
+        async function fetchDataAndUpateUI(event) {
+            const location = locationInput.value
+            const data = await fetchCurrentWeatherByLocation(location) // it returns promise that's why
+            console.log("location data: ", data)
+            updateWheatherData(data)
+        }
+
+        fetchWheatherDataBtn.addEventListener("click", fetchDataAndUpateUI)
+
+        // function getCurrentLocation() {
+        //     let location = ""
+        //     navigator.geolocation.getCurrentPosition(position => {
+        //         location.coords.latitude
+        //     })
+
+        //     return location
+        // }
+
+        function getCurrentLocation() {
+            return new Promise((resolve, reject) => {
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const latitude = position.coords.latitude;
+                            const longitude = position.coords.longitude;
+                            resolve(latitude + "," + longitude);
+                        },
+                        (error) => {
+                            reject(error.message);
+                        }
+                    );
+                } else {
+                    reject("Geolocation is not supported by this browser.");
+                }
+            });
+        }
+
+        async function getCurrentLocationData() {
+            let currentLocation = await getCurrentLocation()
+            console.log(currentLocation)
+            const data = await fetchCurrentWeatherByLocation(currentLocation)
+            updateWheatherData(data)
+        }
+
+        getCurrentLocationData()
+
+    </script>
+</body>
+
+</html>
